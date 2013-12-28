@@ -1,4 +1,8 @@
 %use the hough transform to find the two biggest lines
+%Find out where they intersect, that's the needle tip
+%currently has no heuristics whatsoever
+%eventually should make sure that
+%each line starts near the center and ends near the edge
 function point = GetNeedleTip(edgeimage)
     [H, theta, rho] = hough(edgeimage);
     peaks = houghpeaks(H, 2);
@@ -8,7 +12,7 @@ function point = GetNeedleTip(edgeimage)
     end
     for k = 1:length(lines)
         xy = [lines(k).point1; lines(k).point2];
-        figure(2), plot(xy(:, 1), xy(:, 2), 'LineWidth', 2, 'Color', 'green');
+        line(xy(:, 1), xy(:, 2))
     end
     %find where the lines intersect (needle tip)
     %using the corresponding theta and rho
