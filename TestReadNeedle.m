@@ -6,8 +6,6 @@ fileIndex = find(~[directory.isdir]);
 for i = 1:length(fileIndex)
     imagename = strcat(directoryname, directory(fileIndex(i)).name);
     imdata = imread(imagename);
-    figure(i), imshow(imdata, []);
-    hold on;
     
     if ~initialized
         [highloc, highvalue, lowloc, lowvalue, pinloc] = GetParameters(imdata);
@@ -16,6 +14,8 @@ for i = 1:length(fileIndex)
     
     unitsperradian = GetUnitsPerRadian(highloc, highvalue, lowloc, lowvalue, pinloc);
     blackwhite = GetEdges(imdata);
+    figure(i), imshow(blackwhite, []);
+    hold on;
     needletip = GetNeedleTip(blackwhite);
     
     plot(needletip(1), needletip(2), 'rx', 'MarkerSize', 20, 'LineWidth', 3);
@@ -31,7 +31,7 @@ for i = 1:length(fileIndex)
     %of a more general approach is in scratch.m, to be used in 
     %cases where the slope of the line between the start and the pin
     %isn't infinite
-    if pinneedletip(1) < pinloc(1)
+    if needletip(1) < pinloc(1)
         angle = 2 * pi - angle;
     end
     %add the low end, plus the units/radian * radians
