@@ -6,6 +6,7 @@ fileIndex = find(~[directory.isdir]);
 for i = 1:length(fileIndex)
     imagename = strcat(directoryname, directory(fileIndex(i)).name);
     imdata = imread(imagename);
+    figure(i), imshow(imdata, []);
     
     if ~initialized
         [highloc, highvalue, lowloc, lowvalue, pinloc] = GetParameters(imdata);
@@ -14,7 +15,6 @@ for i = 1:length(fileIndex)
     
     unitsperradian = GetUnitsPerRadian(highloc, highvalue, lowloc, lowvalue, pinloc);
     blackwhite = GetEdges(imdata);
-    figure(i), imshow(blackwhite, []);
     hold on;
     needletip = GetNeedleTip(blackwhite);
     

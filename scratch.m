@@ -1,4 +1,11 @@
 
+%line plotting code:
+domain = linspace(1, 300);
+mult = [domain; ones(1, 100)];
+codomain = line1 * mult;
+plot(domain, codomain, 'Color', 'red', 'LineWidth', 3);
+
+
 %first, fit a line from the low point, to the point pi radians across
 pin = [pinx - piny]
 oppositelow = 2 * pin - low %formula for reflection

@@ -6,13 +6,14 @@
 function point = GetNeedleTip(edgeimage)
     [H, theta, rho] = hough(edgeimage);
     peaks = houghpeaks(H, 2);
-    lines = houghlines(edgeimage, theta, rho, peaks);
+    gap = size(edgeimage, 1);
+    lines = houghlines(edgeimage, theta, rho, peaks, 'FillGap', gap);
     if length(lines) < 2
         error('something bad happened, fewer than two lines')
     end
     for k = 1:length(lines)
         xy = [lines(k).point1; lines(k).point2];
-        line(xy(:, 1), xy(:, 2))
+        plot(xy(:, 1), xy(:, 2), 'g-x', 'LineWidth', 1);
     end
     %find where the lines intersect (needle tip)
     %using the corresponding theta and rho
